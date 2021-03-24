@@ -37,6 +37,10 @@ const messageSystem = {
       console.log(data.message);
       document.getElementById("output").insertAdjacentHTML("beforeend", bericht);
     });
+    // const time = document.getElementsByClassName("on");
+    // console.log(time);
+    // time.sort(function(a,b) {return b-a;});
+    // console.log("sorted", time);
     });
   }
 };
