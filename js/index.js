@@ -18,6 +18,7 @@ const messageSystem = {
     .then(response => response.json())
     .then(data=> {
       console.log(data);
+      this.fetchMessages();
     });
   },
 
@@ -27,13 +28,14 @@ const messageSystem = {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      data.forEach(messages => {
+      data.forEach(data => {
         const bericht = `<div class="message">
         <span class="by">${data.handle}</span>
         <span class="on">${data.created_at}</span>
         <p>${data.message}</p>
       </div>`;
-      console.log(messages.message);
+      console.log(data.message);
+      document.getElementById("output").insertAdjacentHTML("beforeend", bericht);
     });
     });
   }
