@@ -2,10 +2,23 @@
 
 const messageSystem = {
   startFetching() {
+    setInterval(() => {
+      this.fetchMessages();
+    }, 1000);
   },
 
   sendMessage(msg) {
     // https://thecrew.cc/api/message/create.php?token=__TOKEN__ POST
+    fetch(`https://thecrew.cc/api/message/create.php?token=`+ userSystem.token, {
+      method: 'POST',
+      body: JSON.stringify({
+      message : msg
+      })
+    })
+    .then(response => response.json())
+    .then(data=> {
+      console.log(data);
+    });
   },
 
   fetchMessages() {
@@ -14,6 +27,14 @@ const messageSystem = {
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      data.forEach(messages => {
+        const bericht = `<div class="message">
+        <span class="by">${data.handle}</span>
+        <span class="on">${data.created_at}</span>
+        <p>${data.message}</p>
+      </div>`;
+      console.log(messages.message);
+    });
     });
   }
 };
@@ -24,10 +45,10 @@ const userSystem = {
 
   checkToken() {
     const localToken = this.getToken();
+    const removeScreen = document.getElementById("loginWindow");
     if (localToken !== null) {
       this.token = localToken;
       messageSystem.fetchMessages();
-      const removeScreen = document.getElementById("loginWindow");
       removeScreen.style.display = "none";
     }
   },
@@ -73,6 +94,8 @@ const display = {
   initFields() {
     const loginInput = document.getElementById("loginForm");
     loginInput.addEventListener("submit", this.submitHandler);
+    const writeMsg = document.getElementById("output");
+    writeMsg.addEventListener("submit", this.submitHandler);
   },
   submitHandler(event){
     event.preventDefault();
