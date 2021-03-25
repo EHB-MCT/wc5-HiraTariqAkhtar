@@ -39,7 +39,7 @@ const messageSystem = {
     });
     // const time = document.getElementsByClassName("on");
     // console.log(time);
-    // time.sort(function(a,b) {return b-a;});
+    // time.sort((a,b)=> b-a);
     // console.log("sorted", time);
     });
   }
